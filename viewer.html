@@ -2,32 +2,30 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>ページ表示</title>
+  <title>検索結果ページビューア</title>
+  <style>
+    body, html {
+      margin: 0; padding: 0; height: 100%;
+    }
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: none;
+    }
+  </style>
 </head>
 <body>
-  <p>読み込み中...</p>
+  <iframe id="pageFrame" src="" sandbox="allow-scripts allow-same-origin"></iframe>
+
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const rawUrl = params.get("url");
-
-    if (!rawUrl) {
-      document.body.innerHTML = "<p>無効なURLです。</p>";
+    const proxyBase = "https://cors-0x10.online:1508";
+    const params = new URLSearchParams(location.search);
+    const encodedUrl = params.get('url');
+    if (!encodedUrl) {
+      alert('URLパラメータがありません');
     } else {
-      // ここをあなたのプロキシURLに修正しました
-      const proxyBase = "https://cors-0x10.online:1508"; 
-      const target = `${proxyBase}/proxy?url=${rawUrl}`;
-
-      fetch(target)
-        .then((res) => res.text())
-        .then((html) => {
-          document.open();
-          document.write(html);
-          document.close();
-        })
-        .catch((err) => {
-          console.error(err);
-          document.body.innerHTML = "<p>ページの取得に失敗しました。</p>";
-        });
+      const proxyUrl = `${proxyBase}/proxy?url=${encodedUrl}`;
+      document.getElementById('pageFrame').src = proxyUrl;
     }
   </script>
 </body>
