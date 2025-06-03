@@ -28,7 +28,8 @@
   <div id="results"></div>
 
   <script>
-    const proxyBase = "https://cors-0x10.online:1508"; // プロキシURL
+    // サーバーのURLに合わせてください（localhostなら http://localhost:1508）
+    const proxyBase = "http://localhost:1508";
 
     async function search() {
       const q = document.getElementById("query").value.trim();
@@ -37,8 +38,13 @@
         return;
       }
       try {
-        // プロキシ経由で検索APIを呼び出す想定の場合
         const res = await fetch(`${proxyBase}/search?q=${encodeURIComponent(q)}`);
+        if (!res.ok) {
+          const errorText = await res.text();
+          console.error('Search API error:', res.status, errorText);
+          alert('検索APIでエラーが発生しました。');
+          return;
+        }
         const data = await res.json();
 
         const resultsDiv = document.getElementById("results");
