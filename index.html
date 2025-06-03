@@ -28,6 +28,8 @@
   <div id="results"></div>
 
   <script>
+    const proxyBase = "https://cors-0x10.online:1508"; // プロキシURL
+
     async function search() {
       const q = document.getElementById("query").value.trim();
       if (!q) {
@@ -35,8 +37,10 @@
         return;
       }
       try {
-        const res = await fetch(`/search?q=${encodeURIComponent(q)}`);
+        // プロキシ経由で検索APIを呼び出す想定の場合
+        const res = await fetch(`${proxyBase}/search?q=${encodeURIComponent(q)}`);
         const data = await res.json();
+
         const resultsDiv = document.getElementById("results");
         resultsDiv.innerHTML = "";
 
